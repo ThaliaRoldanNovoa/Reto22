@@ -1,0 +1,138 @@
+RETO 2
+
+IP INSTANCIA: 129.151.103.55
+USERNAME: opc
+CLAVES: ssh-key-2021-11-10.key  ssh-key-2021-11-10.key.pub
+
+EN GIBHUB 
+
+*Conectarse al servido*
+
+ssh -i ssh-key-2021-11-10.key opc@129.151.103.55
+
+*Actualizar los repositorios del sistema operativo Linux*
+
+sudo yum update
+
+*Instalar el servidor web Apache*
+
+sudo yum install httpd(nombre del servidor web Apache)
+
+*Para habilitar el servidor web Apache*
+
+sudo systemctl enable httpd
+
+------------------------------------------------
+sudo systemctl enable httpd
+[opc@web ~]$ sudo systemctl restart httpd
+[opc@web ~]$ sudo firewall-cmd -- reload
+usage: see firewall-cmd man page
+firewall-cmd: error: unrecognized arguments: -- reload
+[opc@web ~]$ sudo firewall-cmd --reload
+success
+[opc@web ~]$ cd /var/www/html
+[opc@web html]$ ls
+[opc@web html]$ sudo nano index.html
+[opc@web html]$
+--------------------------------------------------
+
+
+*Activar regla del firewall para permitir conexiones*
+
+sudo firewall-cmd --add-service=http --permanent
+
+*Actualizar el firewall*
+
+sudo firewall-cmd --reload
+
+*Inicializar Apache*
+
+sudo apachectl start
+
+----- CREACION DE MODULOS -------
+
+*client*
+
+MANEJADORES 
+
+GET:
+SELECT*FROM CLIENT
+
+POST:
+BEGIN
+    INSERT INTO CLIENT (ID,NAME,EMAIL,AGE) VALUES(:id, :name, :email, :age);
+    :status_code:=201;
+END;
+
+PUT:
+BEGIN
+    UPDATE CLIENT SET NAME=:name, EMAIL=:email, AGE=:age WHERE ID=:id;
+    :status_code:=201;
+END;
+
+DELETE:
+BEGIN
+    DELETE FROM CLIENT WHERE ID=: id;
+    :status_code:=204;
+END;
+
+*client/id*
+
+MANEJADOR
+
+GET:
+SELECT * FROM CLIENT WHERE ID=:id
+
+*cloud*
+
+GET:
+SELECT*FROM cloud
+
+POST:
+BEGIN
+    INSERT INTO cloud(ID,BRAND,MODEL,CATEGORY_ID,NAME) VALUES(:id, :brand, :model, :category_id, :name);
+    :status_code:=201; 
+END;
+
+PUT:
+BEGIN
+    UPDATE cloud SET BRAND =:brand, MODEL=:model, CATEGORY_ID=:category_id, 
+    NAME=:name WHERE ID=:id;
+    :status_code:=201;
+END;
+
+DELETE:
+BEGIN
+    DELETE FROM cloud WHERE ID=:id;
+    :status_code:=204;
+END;
+
+*message*
+
+GET:
+SELECT*FROM message
+
+POST:
+BEGIN
+    INSERT INTO MESSAGE(ID,MESSAGETEXT) VALUES( :id, :messagetext);
+    :status_code:=201;
+END;
+
+PUT:
+BEGIN
+    UPDATE  MESSAGE SET MESSAGETEXT=:messagetext WHERE ID=:id;
+    :status_code:=201;
+END;
+
+DELETE:
+BEGIN
+    DELETE FROM MESSAGE WHERE ID=:id;
+    :status_code:=204;
+END;
+
+----------- Index.html
+
+ 
+
+
+
